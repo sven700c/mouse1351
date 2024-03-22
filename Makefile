@@ -7,18 +7,20 @@ BUILDNUM       = $(shell cat buildnum)
 
 DEFS           = -DF_CPU=8000000L -DMCU_TARGET=$(MCU_TARGET) -DVERSION=\"$(VERSION)\" -DBUILDNUM=\"$(BUILDNUM)\"
 LIBS           =
+AVR_TOOLS_PATH = /Applications/Arduino.app/Contents/Java/hardware/tools/avr/bin
+
 
 # You should not have to change anything below here.
 
-CC             = avr-gcc
+CC             = $(AVR_TOOLS_PATH)/avr-gcc
 
 # Override is only needed by avr-lib build system.
 
 override CFLAGS        = -g -Wall $(OPTIMIZE) -mmcu=$(MCU_TARGET) $(DEFS)
 override LDFLAGS       = -Wl,-Map,$(PRG).map
 
-OBJCOPY        = avr-objcopy
-OBJDUMP        = avr-objdump
+OBJCOPY        = $(AVR_TOOLS_PATH)/avr-objcopy
+OBJDUMP        = $(AVR_TOOLS_PATH)/avr-objdump
 DOXYGEN		   = doxygen
 
 all: buildnum $(PRG).elf lst text eeprom
